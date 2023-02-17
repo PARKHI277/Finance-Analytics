@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const cookieParser = require("cookie-parser");
 const dataRoute = require("./router/data");
+const predicteRoute = require("./router/calculate");
 const mongoose = require("mongoose");
 //Middlewares
 app.use(express.json());
@@ -44,6 +45,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", dataRoute);
+app.use("/api/v1", predicteRoute);
 
 const port = process.env.PORT || 4200;
 app.listen(port, () => {
