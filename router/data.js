@@ -30,9 +30,23 @@ router.post("/data", async (req, res) => {
 
     const saveProduct = await dataCreate.save();
 
-    res.status(201).send({
-      message: "data Successfully Added",
+    const Data = await Product.find({
+      $and: [
+        { operatingGrossMargin },
+        { operatingProfitRate },
+        { preTaxNetInterestRate },
+        { afterTaxNetInterestRate },
+        { cashFlowpershare },
+        { perShareNetProfitBeforeTax },
+        { regularNetProfitGrowthRate },
+        { quickRatio },
+      ],
     });
+
+    const dataId = Data[0]._id;
+    const find = await Product.findById(dataId);
+
+    res.status(201).json(find.bankrupt);
   } catch (error) {
     res.status(400).send(`err ${error}`);
   }
@@ -51,7 +65,5 @@ router.get("/data", async (req, res) => {
     res.status(400).json(err);
   }
 });
-
-
 
 module.exports = router;
