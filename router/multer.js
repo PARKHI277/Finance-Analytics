@@ -35,12 +35,21 @@ router.post("/upload", upload.single("file"), (req, res) => {
     return res.status(400).send("Please upload a CSV file");
   }
 
+  const options = {
+    objectMode: true,
+    delimiter: ";",
+    quote: null,
+    headers: true,
+    renameHeaders: false,
+  };
+
+
   const filePath = file.path;
   const data = [];
 
   // Read the CSV file
   fs.createReadStream(filePath)
-    .pipe(csv())
+    .pipe(fastcsv.parse(options))
     .on("data", (row) => {
       data.push(row);
     })
@@ -54,6 +63,16 @@ router.post("/upload", upload.single("file"), (req, res) => {
         res.send("File uploaded and data saved successfully!");
       });
     });
+});
+
+router.get("/csv", async (req, res) => {
+  try {
+    const data = await CSV.find();
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
 });
 
 module.exports = router;
