@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const Product = require("../models/data");
 
-router.get("/pre", async (req, res) => {
+router.post("/pre", async (req, res) => {
   try {
     const {
       operatingGrossMargin,
@@ -13,7 +13,7 @@ router.get("/pre", async (req, res) => {
       perShareNetProfitBeforeTax,
       regularNetProfitGrowthRate,
       quickRatio,
-    } = req.query;
+    } = req.body;
     const Data = await Product.find({
       $and: [
         { operatingGrossMargin },
