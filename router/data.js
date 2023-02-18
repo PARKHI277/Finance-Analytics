@@ -14,55 +14,6 @@ router.post("/data", async (req, res) => {
       regularNetProfitGrowthRate,
       quickRatio,
     } = req.body;
-    const Data = await Product.find({
-      $and: [
-        { operatingGrossMargin },
-        { operatingProfitRate },
-        { preTaxNetInterestRate },
-        { afterTaxNetInterestRate },
-        { cashFlowpershare },
-        { perShareNetProfitBeforeTax },
-        { regularNetProfitGrowthRate },
-        { quickRatio },
-      ],
-    });
-
-    const dataId = Data[0]._id;
-    const find = await Product.findById(dataId);
-
-    res.status(200).json(find.bankrupt);
-
-    // const dataCreate = new Product({
-    //   operatingGrossMargin,
-    //   operatingProfitRate,
-    //   preTaxNetInterestRate,
-    //   afterTaxNetInterestRate,
-    //   cashFlowpershare,
-    //   perShareNetProfitBeforeTax,
-    //   regularNetProfitGrowthRate,
-    //   quickRatio,
-    // });
-
-    // const saveProduct = await dataCreate.save();
-    // const Data = await Product.find({
-    //   $and: [
-    //     { operatingGrossMargin: req.body.operatingGrossMargin },
-    //     { operatingProfitRate: req.body.operatingProfitRate },
-    //     { preTaxNetInterestRate: req.body.preTaxNetInterestRate },
-    //     { afterTaxNetInterestRate: req.body.afterTaxNetInterestRate },
-    //     { cashFlowpershare: req.body.cashFlowpershare },
-    //     { perShareNetProfitBeforeTax: req.body.perShareNetProfitBeforeTax },
-    //     { regularNetProfitGrowthRate: req.body.regularNetProfitGrowthRate },
-    //     { quickRatio: req.body.quickRatio },
-    //   ],
-    // });
-    // console.log(Data);
-    // const dataId = Data[0]._id;
-    // console.log(dataId);
-    // const find = await Product.findById(dataId);
-
-    // res.status(201).json(find.bankrupt);
-
     // const Data = await Product.find({
     //   $and: [
     //     { operatingGrossMargin },
@@ -75,12 +26,28 @@ router.post("/data", async (req, res) => {
     //     { quickRatio },
     //   ],
     // });
-    // console.log(Data);
+
     // const dataId = Data[0]._id;
-    // console.log(dataId);
     // const find = await Product.findById(dataId);
-    // console.log(find);
+
     // res.status(200).json(find.bankrupt);
+
+    const dataCreate = new Product({
+      operatingGrossMargin,
+      operatingProfitRate,
+      preTaxNetInterestRate,
+      afterTaxNetInterestRate,
+      cashFlowpershare,
+      perShareNetProfitBeforeTax,
+      regularNetProfitGrowthRate,
+      quickRatio,
+    });
+
+    const saveProduct = await dataCreate.save();
+
+    res.status(201).send({
+      message: "data Successfully Added",
+    });
   } catch (error) {
     res.status(400).send(`err ${error}`);
   }
