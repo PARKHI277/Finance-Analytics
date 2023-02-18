@@ -38,18 +38,32 @@ router.get("/pre", async (req, res) => {
   }
 });
 
-// router.get("/gross", async (req, res) => {
-//   const data = await CSV.find();
-//   const len = data.length;
+router.get("/test", async (req, res) => {
+  try {
+    const data = await CSV.find();
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
 
-//   let sum = 0;
-//   for (let k = 0; k < len; k++) {
-//     sum  += data[k].operatingGrossMargin;
-//   }
-//   console.log(sum);
 
-//   let result = (sum * 100) / len;
-//   console.log(result);
-// });
+
+router.get("/gross", async (req, res) => {
+  try {
+    const data = await CSV.find();
+    const len = data.length;
+    let sum = 0;
+    for (let k = 0; k < len; k++) {
+      sum += data[k].operatingGrossMargin;
+    }
+    let result = (sum * 100) / len;
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
 
 module.exports = router;
