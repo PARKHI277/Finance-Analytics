@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const Product = require("../models/data");
+const CSV = require("../models/csv");
 
 router.get("/pre", async (req, res) => {
   try {
@@ -37,9 +38,18 @@ router.get("/pre", async (req, res) => {
   }
 });
 
+// router.get("/gross", async (req, res) => {
+//   const data = await CSV.find();
+//   const len = data.length;
 
-router.post("/csv", async (req, res) => {
-    
-})
+//   let sum = 0;
+//   for (let k = 0; k < len; k++) {
+//     sum  += data[k].operatingGrossMargin;
+//   }
+//   console.log(sum);
+
+//   let result = (sum * 100) / len;
+//   console.log(result);
+// });
 
 module.exports = router;
