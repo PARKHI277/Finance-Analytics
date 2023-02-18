@@ -14,23 +14,8 @@ router.post("/data", async (req, res) => {
       regularNetProfitGrowthRate,
       quickRatio,
     } = req.body;
-    // const Data = await Product.find({
-    //   $and: [
-    //     { operatingGrossMargin },
-    //     { operatingProfitRate },
-    //     { preTaxNetInterestRate },
-    //     { afterTaxNetInterestRate },
-    //     { cashFlowpershare },
-    //     { perShareNetProfitBeforeTax },
-    //     { regularNetProfitGrowthRate },
-    //     { quickRatio },
-    //   ],
-    // });
 
-    // const dataId = Data[0]._id;
-    // const find = await Product.findById(dataId);
-
-    // res.status(200).json(find.bankrupt);
+    
 
     const dataCreate = new Product({
       operatingGrossMargin,
@@ -44,7 +29,7 @@ router.post("/data", async (req, res) => {
     });
 
     const saveProduct = await dataCreate.save();
-
+    console.log(saveProduct);
     res.status(201).send({
       message: "data Successfully Added",
     });

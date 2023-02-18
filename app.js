@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const dataRoute = require("./router/data");
 const predicteRoute = require("./router/calculate");
 const mongoose = require("mongoose");
+const csvv = require("./router/multer");
 //Middlewares
 app.use(express.json());
 app.use(cookieParser());
@@ -46,6 +47,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", dataRoute);
 app.use("/api/v1", predicteRoute);
+app.use("/api/v1", csvv);
 
 const port = process.env.PORT || 4200;
 app.listen(port, () => {
