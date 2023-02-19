@@ -26,7 +26,7 @@ router.post("/data", async (req, res) => {
       regularNetProfitGrowthRate +
       quickRatio;
     let check;
-    if (sum > 0.8) {
+    if (sum > 0.65) {
       check = 1;
     } else {
       check = 0;

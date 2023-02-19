@@ -31,7 +31,7 @@ const dataSchema = new Schema(
       type: Boolean,
     },
   },
-  { timestamps: true }
+  { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
 const data = new mongoose.model("Data", dataSchema);
