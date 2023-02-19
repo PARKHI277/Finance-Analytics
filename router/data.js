@@ -15,7 +15,22 @@ router.post("/data", async (req, res) => {
       quickRatio,
     } = req.body;
 
-    
+    let sum = 0;
+    sum =
+      operatingGrossMargin +
+      operatingProfitRate +
+      preTaxNetInterestRate +
+      afterTaxNetInterestRate +
+      cashFlowpershare +
+      perShareNetProfitBeforeTax +
+      regularNetProfitGrowthRate +
+      quickRatio;
+    let check;
+    if (sum > 0.8) {
+      check = 1;
+    } else {
+      check = 0;
+    }
 
     const dataCreate = new Product({
       operatingGrossMargin,
@@ -32,6 +47,7 @@ router.post("/data", async (req, res) => {
     console.log(saveProduct);
     res.status(201).send({
       message: "data Successfully Added",
+      check,
     });
   } catch (error) {
     res.status(400).send(`err ${error}`);

@@ -66,4 +66,21 @@ router.get("/gross", async (req, res) => {
   }
 });
 
+router.get("/perProfit", async (req, res) => {
+  try {
+    const data = await CSV.find();
+    const len = data.length;
+    let sum = 0;
+    for (let k = 0; k < len; k++)
+    {
+      sum = sum + data[k].perShareNetProfitBeforeTax;
+    }
+    let result
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+})
+
 module.exports = router;
